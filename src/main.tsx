@@ -7,4 +7,4 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Game />
   </StrictMode>,
-)
+);

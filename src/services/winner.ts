@@ -3,7 +3,7 @@ export interface Winner {
     move: number[];
 }
 
-export const calculateWinner = (squares: string[]): Winner | undefined => {
+export const calculateWinner = (squares: (string | null)[]): Winner | undefined => {
     const lines = [
         [0, 1, 2],
         [3, 4, 5],

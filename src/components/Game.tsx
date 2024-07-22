@@ -18,7 +18,7 @@ export default function Game() {
   
   const winner = calculateWinner(currentSquares.boardState);
   
-  const handlePlay = (nextSquares: string[], coords: Coords) => {
+  const handlePlay = (nextSquares: (string | null)[], coords: Coords) => {
     const nextHistory = [
       ...history.slice(0, currentMove + 1),
       { boardState: nextSquares, coords },

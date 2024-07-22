@@ -1,5 +1,5 @@
 interface SquareProps {
-    value: string;
+    value: string| null;
     onSquareClick: (e: React.MouseEvent<HTMLElement>) => void;
     highlight: boolean;
 }

@@ -1,5 +1,5 @@
 export interface History {
-  boardState: string[];
+  boardState: (string | null)[];
   coords: Coords;
 }
 

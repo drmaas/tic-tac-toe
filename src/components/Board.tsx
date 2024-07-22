@@ -5,15 +5,15 @@ import { Coords } from "../types/history";
 
 interface BoardProps {
   xIsNext: boolean;
-  squares: string[];
+  squares: (string | null)[];
   winner: Winner | undefined;
-  onPlay: (nextSquares: string[], coords: Coords) => void;
+  onPlay: (nextSquares: (string | null)[], coords: Coords) => void;
 }
 
 export const Board = (boardProps: BoardProps) => {
   const [moveCount, setMoveCount] = useState(0);
   const handleClick = (i: number, row: number, column: number) => {
-    if (boardProps.squares[i] || boardProps.winner) {
+    if (boardProps.squares[i] ?? boardProps.winner) {
       return;
     }
     setMoveCount(moveCount + 1);
