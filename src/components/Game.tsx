@@ -19,7 +19,26 @@ export default function Game() {
   
   const winner = calculateWinner(currentSquares.boardState);
   
-  const handlePlay = (nextSquares: (string | null)[], coords: Coords) => {
+  const handlePlay = (i: number, coords: Coords) => {
+    const squares = currentSquares.boardState;
+
+    // return if winner
+    if (squares[i] ?? winner) {
+      return;
+    }
+    // can't alter game state when going through history
+    if (inHistory) {
+      return;
+    }
+
+    // update board
+    const nextSquares = squares.slice();
+    if (xIsNext) {
+      nextSquares[i] = "X";
+    } else {
+      nextSquares[i] = "O";
+    }
+
     const nextHistory = [
       ...history.slice(0, currentMove + 1),
       { boardState: nextSquares, coords },
@@ -35,6 +54,7 @@ export default function Game() {
 
   const newGame = () => {
     setCurrentMove(0);
+    setMoveCount(0);
     setHistory(initialHistory);
   };
 
@@ -44,7 +64,7 @@ export default function Game() {
   
   const inHistory = currentMove < moveCount;
 
-  const draw = moveCount > 8;
+  const gameOver = moveCount > 8;
 
   return (
     <div className="game">
@@ -55,8 +75,7 @@ export default function Game() {
           squares={currentSquares.boardState}
           onPlay={handlePlay}
           winner={winner}
-          inHistory={inHistory}
-          draw={draw}
+          gameOver={gameOver}
         />
       </div>
       <div className="game-info">
@@ -67,6 +86,7 @@ export default function Game() {
           currentMove={currentMove}
           jumpTo={jumpTo}
           winner={winner}
+          gameOver={gameOver}
         />
       </div>
     </div>

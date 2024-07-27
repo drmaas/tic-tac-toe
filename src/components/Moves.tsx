@@ -6,6 +6,7 @@ interface MoveProps {
   sort: boolean;
   currentMove: number;
   winner: Winner | undefined;
+  gameOver: boolean;
   jumpTo: (move: number) => void;
 }
 
@@ -21,12 +22,12 @@ export const Moves = (props: MoveProps) => {
 
     const winnerString = props.winner
       ? `(Game won by ${props.winner.player}) `
-      : "";
+      : "(Draw) ";
     let moveString =
       move > 0
         ? `You are at move #${move} (${coordsString})`
         : `You are at game start`;
-    if (move === props.history.length-1) {
+    if ((move === props.history.length-1 && props.gameOver) || props.winner) {
         moveString = `${winnerString}${moveString}`;
     }
     if (move === props.currentMove) {

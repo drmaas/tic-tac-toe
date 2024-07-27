@@ -6,34 +6,16 @@ interface BoardProps {
   xIsNext: boolean;
   squares: (string | null)[];
   winner: Winner | undefined;
-  inHistory: boolean;
-  draw: boolean;
-  onPlay: (nextSquares: (string | null)[], coords: Coords) => void;
+  gameOver: boolean;
+  onPlay: (i: number, coords: Coords) => void;
 }
 
 export const Board = (boardProps: BoardProps) => {
-  const handleClick = (i: number, row: number, column: number) => {
-    if (boardProps.squares[i] ?? boardProps.winner) {
-      return;
-    }
-    // can't alter game state when going through history
-    if (boardProps.inHistory) {
-      return;
-    }
-    const nextSquares = boardProps.squares.slice();
-    if (boardProps.xIsNext) {
-      nextSquares[i] = "X";
-    } else {
-      nextSquares[i] = "O";
-    }
-    boardProps.onPlay(nextSquares, { row, column });
-  };
-
   let status;
   if (boardProps.winner) {
     status = "Winner: " + boardProps.winner.player;
   } else {
-    if (boardProps.draw) {
+    if (boardProps.gameOver) {
       status = "Draw";
     } else {
       status = "Next player: " + (boardProps.xIsNext ? "X" : "O");
@@ -58,7 +40,7 @@ export const Board = (boardProps: BoardProps) => {
       rowItems.push(
         <Square
           value={boardProps.squares[square]}
-          onSquareClick={() => handleClick(square, i, j)}
+          onSquareClick={() => boardProps.onPlay(square, { row: i, column: j })}
           key={square}
           highlight={highlight}
         />
