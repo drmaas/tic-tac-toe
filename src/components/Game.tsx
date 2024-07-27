@@ -11,6 +11,7 @@ export default function Game() {
   ];
   const [history, setHistory] = useState<History[]>(initialHistory);
   const [currentMove, setCurrentMove] = useState(0);
+  const [moveCount, setMoveCount] = useState(0);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
   const [sort, setSort] = useState(true); // true=ascending, false=descending
@@ -25,6 +26,7 @@ export default function Game() {
     ];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
+    setMoveCount(moveCount + 1);
   };
 
   const jumpTo = (move: number) => {
@@ -39,6 +41,10 @@ export default function Game() {
   const handleSort = () => {
     setSort(!sort);
   };
+  
+  const inHistory = currentMove < moveCount;
+
+  const draw = moveCount > 8;
 
   return (
     <div className="game">
@@ -49,6 +55,8 @@ export default function Game() {
           squares={currentSquares.boardState}
           onPlay={handlePlay}
           winner={winner}
+          inHistory={inHistory}
+          draw={draw}
         />
       </div>
       <div className="game-info">

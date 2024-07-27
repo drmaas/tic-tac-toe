@@ -14,6 +14,8 @@ const renderBoard = (props: Partial<React.ComponentProps<typeof Board>>) => {
     xIsNext: true,
     squares: Array(9).fill(null),
     winner: undefined,
+    inHistory: false,
+    draw: false,
     onPlay: vi.fn(),
   };
   const all = { ...defaultProps, ...props };
@@ -51,7 +53,7 @@ describe('Board component', () => {
   });
 
   it('renders draw status when all squares are filled without a winner', () => {
-    renderBoard({ onPlay: onPlayMock });
+    renderBoard({ onPlay: onPlayMock, draw: true });
     const buttons = screen.getAllByRole('button');
     fireEvent.click(buttons[0]);
     fireEvent.click(buttons[1]);

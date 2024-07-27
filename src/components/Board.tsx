@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Winner } from "../services/winner";
 import { Square } from "./Square";
 import { Coords } from "../types/history";
@@ -7,16 +6,20 @@ interface BoardProps {
   xIsNext: boolean;
   squares: (string | null)[];
   winner: Winner | undefined;
+  inHistory: boolean;
+  draw: boolean;
   onPlay: (nextSquares: (string | null)[], coords: Coords) => void;
 }
 
 export const Board = (boardProps: BoardProps) => {
-  const [moveCount, setMoveCount] = useState(0);
   const handleClick = (i: number, row: number, column: number) => {
     if (boardProps.squares[i] ?? boardProps.winner) {
       return;
     }
-    setMoveCount(moveCount + 1);
+    // can't alter game state when going through history
+    if (boardProps.inHistory) {
+      return;
+    }
     const nextSquares = boardProps.squares.slice();
     if (boardProps.xIsNext) {
       nextSquares[i] = "X";
@@ -30,7 +33,7 @@ export const Board = (boardProps: BoardProps) => {
   if (boardProps.winner) {
     status = "Winner: " + boardProps.winner.player;
   } else {
-    if (moveCount > 8) {
+    if (boardProps.draw) {
       status = "Draw";
     } else {
       status = "Next player: " + (boardProps.xIsNext ? "X" : "O");
