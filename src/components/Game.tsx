@@ -12,11 +12,11 @@ export default function Game() {
   const [history, setHistory] = useState<History[]>(initialHistory);
   const [currentMove, setCurrentMove] = useState(0);
   const [moveCount, setMoveCount] = useState(0);
+  const [sort, setSort] = useState(true); // true=ascending, false=descending
+
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
-  const [sort, setSort] = useState(true); // true=ascending, false=descending
   const sortDescription = sort ? "Descending" : "Ascending";
-  
   const winner = calculateWinner(currentSquares.boardState);
   
   const handlePlay = (i: number, coords: Coords) => {

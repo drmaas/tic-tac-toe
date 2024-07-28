@@ -4,6 +4,17 @@ Tic Tac Toe Using React + TypeScript + Vite, based on <https://react.dev/learn/t
 
 ## Development
 
+Start the server:
+```shell
+yarn server
+```
+
+Test the server:
+```shell
+yarn client
+```
+
+Start the app:
 ```shell
   yarn dev
 ```
