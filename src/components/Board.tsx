@@ -1,9 +1,10 @@
 import { Winner } from "../services/winner";
 import { Square } from "./Square";
 import { Coords } from "../types/history";
+import { Player } from "../types/player";
 
 interface BoardProps {
-  xIsNext: boolean;
+  nextPlayer: Player;
   squares: (string | null)[];
   winner: Winner | undefined;
   gameOver: boolean;
@@ -18,7 +19,7 @@ export const Board = (boardProps: BoardProps) => {
     if (boardProps.gameOver) {
       status = "Draw";
     } else {
-      status = "Next player: " + (boardProps.xIsNext ? "X" : "O");
+      status = `Next player: ${boardProps.nextPlayer}`;
     }
   }
 

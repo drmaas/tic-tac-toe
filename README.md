@@ -18,3 +18,5 @@ Start the app:
 ```shell
   yarn dev
 ```
+
+Launch 2 tabs to the game URL. Now you can play against yourself in multiple tabs instead of 1 :D

@@ -1,5 +1,7 @@
+import { Board } from "./board";
+
 export interface History {
-  boardState: (string | null)[];
+  boardState: Board;
   coords: Coords;
 }
 
